@@ -1,0 +1,7 @@
+﻿################################################################################
+# Este arquivo .gitignore foi criado automaticamente pelo Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs/Fcg.Gateway
+/Fcg.Gateway/bin/Debug/net10.0
+/Fcg.Gateway/obj
