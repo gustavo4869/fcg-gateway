@@ -1,8 +1,18 @@
 using System.Net;
 using System.Net.Http;
 using System.Net.Security;
+using Fcg.Gateway.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Application Insights
+builder.Services.AddApplicationInsightsTelemetry(options =>
+{
+    options.ConnectionString = builder.Configuration["ApplicationInsights:ConnectionString"];
+});
+
+// Health Checks
+builder.Services.AddHealthChecks();
 
 // Reverse Proxy (YARP) + HttpClient tuning para Container Apps
 builder.Services
@@ -29,8 +39,26 @@ builder.Services
 
 var app = builder.Build();
 
-app.MapGet("/health", () => Results.Ok(new { status = "ok", service = "gateway" }));
+// Middleware de Correlation ID (primeiro)
+app.UseMiddleware<CorrelationIdMiddleware>();
 
+// Middleware de Logging estruturado
+app.UseMiddleware<RequestLoggingMiddleware>();
+
+// Health check endpoints
+app.MapHealthChecks("/health");
+app.MapHealthChecks("/health/ready");
+app.MapHealthChecks("/health/live");
+
+// Endpoint de informações do gateway
+app.MapGet("/", () => Results.Ok(new
+{
+    service = "FCG Gateway",
+    version = "1.0.0",
+    status = "running"
+}));
+
+// YARP Reverse Proxy
 app.MapReverseProxy();
 
 app.Run();

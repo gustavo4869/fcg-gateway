@@ -5,3 +5,11 @@
 /.vs/Fcg.Gateway
 /Fcg.Gateway/bin/Debug/net10.0
 /Fcg.Gateway/obj
+/.vs
+/AZURE_SETUP.md
+/CHANGES_SUMMARY.md
+/COMMANDS.md
+/EXAMPLES.md
+/GITHUB_SECRETS.md
+/IMPLEMENTATION_SUMMARY.md
+/QUICK_START.md
