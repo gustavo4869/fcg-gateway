@@ -10,7 +10,7 @@ on:
 env:
   AZURE_CONTAINER_APP_NAME: ca-fcg-gateway
   AZURE_RESOURCE_GROUP: fiap-cloud-games-rg
-  CONTAINER_REGISTRY: acrfcggames1222.azurecr.io
+  CONTAINER_REGISTRY: crfcg.azurecr.io
   IMAGE_NAME: fcg-gateway
 
 jobs:
@@ -70,16 +70,51 @@ jobs:
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
         
+    - name: Check and create Application Insights secret
+      uses: azure/CLI@v1
+      with:
+        inlineScript: |
+          echo "Verificando se o secret existe..."
+          
+          # Verificar se o secret existe
+          SECRET_EXISTS=$(az containerapp secret list \
+            --name ${{ env.AZURE_CONTAINER_APP_NAME }} \
+            --resource-group ${{ env.AZURE_RESOURCE_GROUP }} \
+            --query "[?name=='appinsights-connection-string'].name" \
+            --output tsv)
+          
+          if [ -z "$SECRET_EXISTS" ]; then
+            echo "Secret não encontrado. Criando com valor placeholder..."
+            
+            # Criar secret com valor placeholder
+            az containerapp secret set \
+              --name ${{ env.AZURE_CONTAINER_APP_NAME }} \
+              --resource-group ${{ env.AZURE_RESOURCE_GROUP }} \
+              --secrets appinsights-connection-string="InstrumentationKey=00000000-0000-0000-0000-000000000000"
+            
+            echo "?? ATENÇÃO: Secret criado com valor placeholder."
+            echo "Configure o Application Insights seguindo o QUICK_START.md"
+          else
+            echo "? Secret já existe."
+          fi
+        
     - name: Deploy to Azure Container Apps
       uses: azure/CLI@v1
       with:
         inlineScript: |
+          echo "Fazendo deploy da imagem..."
+          
           az containerapp update \
             --name ${{ env.AZURE_CONTAINER_APP_NAME }} \
             --resource-group ${{ env.AZURE_RESOURCE_GROUP }} \
             --image ${{ env.CONTAINER_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }} \
             --set-env-vars \
+              "ASPNETCORE_ENVIRONMENT=Production" \
               "APPLICATIONINSIGHTS_CONNECTION_STRING=secretref:appinsights-connection-string"
+          
+          echo "? Deploy concluído com sucesso!"
+          echo "?? URL: https://ca-fcg-gateway.whitegrass-9df3aed8.brazilsouth.azurecontainerapps.io"
               
     - name: Logout from Azure
       run: az logout
+      if: always()
