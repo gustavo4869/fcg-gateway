@@ -10,7 +10,7 @@ on:
 env:
   AZURE_CONTAINER_APP_NAME: ca-fcg-gateway
   AZURE_RESOURCE_GROUP: fiap-cloud-games-rg
-  CONTAINER_REGISTRY: crfcg.azurecr.io
+  CONTAINER_REGISTRY: acrfcggames1222.azurecr.io
   IMAGE_NAME: fcg-gateway
 
 jobs:
