@@ -1,90 +1,90 @@
-# FIAP Cloud Games - Gateway
+ï»¿# FIAP Cloud Games - Gateway
 
-> API Gateway para o sistema de microsserviços da FIAP Cloud Games
+> API Gateway para o sistema de microsserviÃ§os da FIAP Cloud Games
 
-Gateway desenvolvido com YARP (Yet Another Reverse Proxy) para .NET 10, responsável por rotear requisições para os microsserviços de Usuários, Jogos e Pagamentos.
+Gateway desenvolvido com YARP (Yet Another Reverse Proxy) para .NET 10, responsÃ¡vel por rotear requisiÃ§Ãµes para os microsserviÃ§os de UsuÃ¡rios, Jogos e Pagamentos.
 
 [![Deploy Status](https://github.com/gustavo4869/fcg-gateway/actions/workflows/azure-deploy.yml/badge.svg)](https://github.com/gustavo4869/fcg-gateway/actions)
 
-**?? URL Pública**: https://ca-fcg-gateway.whitegrass-9df3aed8.brazilsouth.azurecontainerapps.io
+**URL Publica**: https://ca-fcg-gateway.whitegrass-9df3aed8.brazilsouth.azurecontainerapps.io
 
-## ?? Quick Start
+## Quick Start
 
-**Novo no projeto?** Siga o guia rápido: [QUICK_START.md](QUICK_START.md)
+**Novo no projeto?** Siga o guia rapido: [QUICK_START.md](QUICK_START.md)
 
-**Precisa dos comandos?** Veja: [COMMANDS.md](COMMANDS.md)
+**Precisa dos comandos?** Veja: [QUICK_COMMANDS.md](QUICK_COMMANDS.md)
 
-## ?? Sumário
+## Sumario
 
-- [Visão Geral](#-visão-geral)
-- [Arquitetura](#-arquitetura)
-- [Funcionalidades](#-funcionalidades)
-- [Tecnologias](#-tecnologias)
-- [Ambiente Azure](#-ambiente-azure)
-- [Instalação e Execução](#-instalação-e-execução)
-- [Rotas](#-rotas)
-- [Observabilidade](#-observabilidade)
-- [CI/CD](#-cicd)
-- [Documentação](#-documentação)
+- [Visao Geral](#visao-geral)
+- [Arquitetura](#arquitetura)
+- [Funcionalidades](#funcionalidades)
+- [Tecnologias](#tecnologias)
+- [Ambiente Azure](#ambiente-azure)
+- [Instalacao e Execucao](#instalacao-e-execucao)
+- [Rotas](#rotas)
+- [Observabilidade](#observabilidade)
+- [CI/CD](#cicd)
+- [Documentacao](#documentacao)
 
-## ?? Visão Geral
+## Visao Geral
 
-O FCG Gateway é um API Gateway que centraliza o acesso aos microsserviços do sistema FIAP Cloud Games. Ele é responsável por:
+O FCG Gateway e um API Gateway que centraliza o acesso aos microsservicos do sistema FIAP Cloud Games. Ele e responsavel por:
 
-- **Roteamento**: Direcionar requisições para os microsserviços apropriados
+- **Roteamento**: Direcionar requisicoes para os microsservicos apropriados
 - **Observabilidade**: Logs estruturados e telemetria com Application Insights
-- **Correlação**: Rastreamento de requisições entre serviços (Distributed Tracing)
-- **Health Checks**: Monitoramento da saúde do gateway
+- **Correlacao**: Rastreamento de requisicoes entre servicos (Distributed Tracing)
+- **Health Checks**: Monitoramento da saude do gateway
 
-## ??? Arquitetura
+## Arquitetura
 
-O gateway atua como ponto de entrada único para os seguintes microsserviços:
+O gateway atua como ponto de entrada unico para os seguintes microsservicos:
 
-- **Users Service** (`/users/*`) - Gerenciamento de usuários e autenticação
-- **Games Service** (`/games/*`) - Catálogo e busca de jogos
+- **Users Service** (`/users/*`) - Gerenciamento de usuarios e autenticacao
+- **Games Service** (`/games/*`) - Catalogo e busca de jogos
 - **Payments Service** (`/payments/*`) - Processamento de pagamentos
 
 ```
-Cliente ? Gateway ? Microsserviços
-          ?
+Cliente -> Gateway -> Microsservicos
+          |
     Observabilidade
     (Logs + Telemetria)
 ```
 
-## ? Funcionalidades
+## Funcionalidades
 
 ### Roteamento Inteligente
-- ? Remoção automática de prefixos de rota
-- ? Balanceamento de carga (quando múltiplos destinos)
-- ? Suporte a HTTP/1.1 e HTTP/2
-- ? Path-based routing
+- [x] Remocao automatica de prefixos de rota
+- [x] Balanceamento de carga (quando multiplos destinos)
+- [x] Suporte a HTTP/1.1 e HTTP/2
+- [x] Path-based routing
 
 ### Observabilidade
-- ? **Logs Estruturados**: Logs detalhados de todas as requisições
-- ? **Application Insights**: Telemetria completa para Azure
-- ? **Correlation ID**: Rastreamento distribuído entre microsserviços
-- ? **Health Checks**: Endpoints de saúde (`/health`, `/health/ready`, `/health/live`)
+- [x] **Logs Estruturados**: Logs detalhados de todas as requisicoes
+- [x] **Application Insights**: Telemetria completa para Azure
+- [x] **Correlation ID**: Rastreamento distribuido entre microsservicos
+- [x] **Health Checks**: Endpoints de saude (`/health`, `/health/ready`, `/health/live`)
 
-### Resiliência
-- ? Timeout configurável
-- ? Health probes (liveness + readiness)
-- ?? Retry policies (pode ser configurado)
-- ?? Circuit breaker (pode ser configurado)
+### Resiliencia
+- [x] Timeout configuravel
+- [x] Health probes (liveness + readiness)
+- [ ] Retry policies (pode ser configurado)
+- [ ] Circuit breaker (pode ser configurado)
 
-## ??? Tecnologias
+## Tecnologias
 
-| Tecnologia | Versão | Descrição |
+| Tecnologia | Versao | Descricao |
 |-----------|--------|-----------|
 | .NET | 10.0 | Framework |
 | YARP | 2.3.0 | Reverse Proxy |
 | Application Insights | 2.22.0 | Telemetria |
 | Azure Container Apps | - | Hosting Serverless |
 | GitHub Actions | - | CI/CD |
-| Docker | - | Containerização |
+| Docker | - | Containerizacao |
 
-## ?? Ambiente Azure
+## Ambiente Azure
 
-O gateway está deployado no Azure com a seguinte configuração:
+O gateway esta deployado no Azure com a seguinte configuracao:
 
 | Recurso | Nome/Valor |
 |---------|-----------|
@@ -92,31 +92,32 @@ O gateway está deployado no Azure com a seguinte configuração:
 | **Container App** | `ca-fcg-gateway` |
 | **Environment** | `cae-fcg-g4869` |
 | **Log Analytics** | `law-fcg-g4869` |
-| **Região** | `Brazil South` |
-| **URL Pública** | `https://ca-fcg-gateway.whitegrass-9df3aed8.brazilsouth.azurecontainerapps.io` |
+| **Container Registry** | `acrfcggames1222.azurecr.io` |
+| **Regiao** | `Brazil South` |
+| **URL Publica** | `https://ca-fcg-gateway.whitegrass-9df3aed8.brazilsouth.azurecontainerapps.io` |
 
-## ?? Instalação e Execução
+## Instalacao e Execucao
 
 ### Executar Localmente
 
-1. Clone o repositório:
+1. Clone o repositorio:
 ```bash
 git clone https://github.com/gustavo4869/fcg-gateway.git
 cd fcg-gateway
 ```
 
-2. Restaure as dependências:
+2. Restaure as dependencias:
 ```bash
 dotnet restore
 ```
 
-3. Execute a aplicação:
+3. Execute a aplicacao:
 ```bash
 cd Fcg.Gateway
 dotnet run
 ```
 
-O gateway estará disponível em `http://localhost:8080`.
+O gateway estara disponivel em `http://localhost:8080`.
 
 ### Executar com Docker
 
@@ -129,30 +130,30 @@ docker run -p 8080:8080 fcg-gateway:local
 
 Veja o guia completo: [QUICK_START.md](QUICK_START.md)
 
-Ou use os comandos prontos: [COMMANDS.md](COMMANDS.md)
+Ou use os comandos prontos: [QUICK_COMMANDS.md](QUICK_COMMANDS.md)
 
-## ?? Rotas
+## Rotas
 
-### Microsserviço de Usuários
+### Microsservico de Usuarios
 ```
-/users/*  ? https://ca-fcg-users.whitegrass-9df3aed8.brazilsouth.azurecontainerapps.io
+/users/*  -> https://ca-fcg-users.whitegrass-9df3aed8.brazilsouth.azurecontainerapps.io
 ```
 
 Exemplos:
 ```bash
-# Criar usuário
+# Criar usuario
 POST https://ca-fcg-gateway.../users/api/v1/usuarios
 
 # Login
 POST https://ca-fcg-gateway.../users/api/v1/auth/login
 
-# Listar usuários (Admin)
+# Listar usuarios (Admin)
 GET https://ca-fcg-gateway.../users/api/v1/usuarios
 ```
 
-### Microsserviço de Jogos
+### Microsservico de Jogos
 ```
-/games/*  ? https://ca-fcg-games.whitegrass-9df3aed8.brazilsouth.azurecontainerapps.io
+/games/*  -> https://ca-fcg-games.whitegrass-9df3aed8.brazilsouth.azurecontainerapps.io
 ```
 
 Exemplos:
@@ -164,9 +165,9 @@ GET https://ca-fcg-gateway.../games/api/v1/jogos
 GET https://ca-fcg-gateway.../games/api/v1/jogos/{id}
 ```
 
-### Microsserviço de Pagamentos
+### Microsservico de Pagamentos
 ```
-/payments/*  ? https://ca-fcg-payments.whitegrass-9df3aed8.brazilsouth.azurecontainerapps.io
+/payments/*  -> https://ca-fcg-payments.whitegrass-9df3aed8.brazilsouth.azurecontainerapps.io
 ```
 
 Exemplos:
@@ -180,26 +181,26 @@ GET https://ca-fcg-gateway.../payments/payments/{id}
 
 ### Endpoints do Gateway
 ```
-GET /                ? Informações do gateway
-GET /health          ? Health check geral
-GET /health/ready    ? Readiness probe
-GET /health/live     ? Liveness probe
+GET /                -> Informacoes do gateway
+GET /health          -> Health check geral
+GET /health/ready    -> Readiness probe
+GET /health/live     -> Liveness probe
 ```
 
-## ?? Observabilidade
+## Observabilidade
 
 ### Application Insights
 
-O gateway está integrado com Azure Application Insights para telemetria completa:
+O gateway esta integrado com Azure Application Insights para telemetria completa:
 
-- **Requisições**: Todas as requisições HTTP são rastreadas
-- **Dependências**: Chamadas para microsserviços são monitoradas
-- **Exceções**: Erros são capturados e enviados automaticamente
-- **Métricas**: Performance e uso de recursos
+- **Requisicoes**: Todas as requisicoes HTTP sao rastreadas
+- **Dependencias**: Chamadas para microsservicos sao monitoradas
+- **Excecoes**: Erros sao capturados e enviados automaticamente
+- **Metricas**: Performance e uso de recursos
 
 ### Correlation ID
 
-Cada requisição recebe ou propaga um `X-Correlation-ID` header para rastreamento distribuído:
+Cada requisicao recebe ou propaga um `X-Correlation-ID` header para rastreamento distribuido:
 
 ```bash
 curl -H "X-Correlation-ID: 12345678-1234-1234-1234-123456789012" \
@@ -208,7 +209,7 @@ curl -H "X-Correlation-ID: 12345678-1234-1234-1234-123456789012" \
 
 ### Logs Estruturados
 
-Exemplo de log de requisição:
+Exemplo de log de requisicao:
 ```
 [Information] Gateway request started: GET /users/123
 [Information] Gateway request completed: GET /users/123 - Status: 200 - Duration: 45.2ms
@@ -216,7 +217,7 @@ Exemplo de log de requisição:
 
 ### Health Checks
 
-| Endpoint | Descrição | Uso |
+| Endpoint | Descricao | Uso |
 |----------|-----------|-----|
 | `/health` | Status geral | Monitoramento |
 | `/health/ready` | Readiness probe | Azure Container Apps |
@@ -227,24 +228,24 @@ Teste:
 curl https://ca-fcg-gateway.whitegrass-9df3aed8.brazilsouth.azurecontainerapps.io/health
 ```
 
-## ?? CI/CD
+## CI/CD
 
-O projeto utiliza GitHub Actions para CI/CD com deploy automático no Azure Container Apps.
+O projeto utiliza GitHub Actions para CI/CD com deploy automatico no Azure Container Apps.
 
 ### Pipeline
 
-1. **Build and Test**: Compila e testa o código
-2. **Build and Push Image**: Cria imagem Docker e envia para Azure Container Registry (`crfcg.azurecr.io`)
+1. **Build and Test**: Compila e testa o codigo
+2. **Build and Push Image**: Cria imagem Docker e envia para Azure Container Registry (`acrfcggames1222.azurecr.io`)
 3. **Deploy**: Atualiza o Container App no Azure
 
-### Secrets Necessários
+### Secrets Necessarios
 
 Veja o guia completo: [GITHUB_SECRETS.md](GITHUB_SECRETS.md)
 
 Configure os seguintes secrets no GitHub:
 
 - `AZURE_CREDENTIALS`: Credenciais de Service Principal
-- `AZURE_REGISTRY_USERNAME`: Usuário do Container Registry
+- `AZURE_REGISTRY_USERNAME`: Usuario do Container Registry
 - `AZURE_REGISTRY_PASSWORD`: Senha do Container Registry
 
 ### Deploy Manual
@@ -253,29 +254,30 @@ Configure os seguintes secrets no GitHub:
 az containerapp update \
   --name ca-fcg-gateway \
   --resource-group fiap-cloud-games-rg \
-  --image crfcg.azurecr.io/fcg-gateway:latest
+  --image acrfcggames1222.azurecr.io/fcg-gateway:latest
 ```
 
-## ?? Documentação
+## Documentacao
 
-| Documento | Descrição |
+| Documento | Descricao |
 |-----------|-----------|
-| [QUICK_START.md](QUICK_START.md) | Guia rápido de deploy (20-25 min) |
-| [COMMANDS.md](COMMANDS.md) | Comandos prontos para copiar e colar |
-| [GITHUB_SECRETS.md](GITHUB_SECRETS.md) | Configuração de secrets do GitHub |
+| [QUICK_START.md](QUICK_START.md) | Guia rapido de deploy (20-25 min) |
+| [QUICK_COMMANDS.md](QUICK_COMMANDS.md) | Comandos prontos para copiar e colar |
+| [GITHUB_SECRETS.md](GITHUB_SECRETS.md) | Configuracao de secrets do GitHub |
 | [AZURE_SETUP.md](AZURE_SETUP.md) | Setup completo do Azure |
 | [EXAMPLES.md](EXAMPLES.md) | Exemplos de uso da API |
-| [IMPLEMENTATION_SUMMARY.md](IMPLEMENTATION_SUMMARY.md) | Resumo técnico da implementação |
-| [CHANGES_SUMMARY.md](CHANGES_SUMMARY.md) | Resumo das alterações |
+| [IMPLEMENTATION_SUMMARY.md](IMPLEMENTATION_SUMMARY.md) | Resumo tecnico da implementacao |
+| [CHANGES_SUMMARY.md](CHANGES_SUMMARY.md) | Resumo das alteracoes |
+| [FIX_SECRET_ERROR.md](FIX_SECRET_ERROR.md) | Solucao para erro de secret |
 
-## ?? Troubleshooting
+## Troubleshooting
 
-### Gateway não consegue acessar microsserviços
+### Gateway nao consegue acessar microsservicos
 
 Verifique:
-1. Os microsserviços estão rodando
-2. Os Container Apps estão no mesmo environment
-3. As configurações de ingress permitem comunicação interna
+1. Os microsservicos estao rodando
+2. Os Container Apps estao no mesmo environment
+3. As configuracoes de ingress permitem comunicacao interna
 
 ```bash
 # Listar todos os Container Apps
@@ -285,12 +287,12 @@ az containerapp list \
   --output table
 ```
 
-### Application Insights não está recebendo telemetria
+### Application Insights nao esta recebendo telemetria
 
 Verifique:
-1. A connection string está configurada
-2. O secret está no Container App
-3. Aguarde 2-3 minutos após fazer requisições
+1. A connection string esta configurada
+2. O secret esta no Container App
+3. Aguarde 2-3 minutos apos fazer requisicoes
 
 ```bash
 # Verificar secret
@@ -309,32 +311,32 @@ az containerapp logs show \
   --follow
 ```
 
-## ?? Tech Challenge - Requisitos Atendidos
+## Tech Challenge - Requisitos Atendidos
 
-| Requisito | Status | Implementação |
+| Requisito | Status | Implementacao |
 |-----------|--------|---------------|
-| API Gateway | ? | YARP com roteamento para 3 microsserviços |
-| Microsserviços | ? | Users, Games, Payments |
-| Serverless | ? | Azure Container Apps |
-| Event Sourcing | ? | Integrado com microsserviços |
-| Observabilidade | ? | Logs + Application Insights + Traces |
-| CI/CD | ? | GitHub Actions |
-| Segurança | ? | Secrets management + Correlation ID |
+| API Gateway | [x] | YARP com roteamento para 3 microsservicos |
+| Microsservicos | [x] | Users, Games, Payments |
+| Serverless | [x] | Azure Container Apps |
+| Event Sourcing | [x] | Integrado com microsservicos |
+| Observabilidade | [x] | Logs + Application Insights + Traces |
+| CI/CD | [x] | GitHub Actions |
+| Seguranca | [x] | Secrets management + Correlation ID |
 
-## ?? Licença
+## Licenca
 
-Projeto acadêmico - FIAP Cloud Games
+Projeto academico - FIAP Cloud Games
 
-## ?? Contato
+## Contato
 
 FIAP Cloud Games Team
 
-- **Repositório**: https://github.com/gustavo4869/fcg-gateway
+- **Repositorio**: https://github.com/gustavo4869/fcg-gateway
 - **Issues**: https://github.com/gustavo4869/fcg-gateway/issues
 - **Actions**: https://github.com/gustavo4869/fcg-gateway/actions
 
 ---
 
-Desenvolvido com ?? usando .NET 10 e YARP para o Tech Challenge - FIAP
+Desenvolvido com dedicacao usando .NET 10 e YARP para o Tech Challenge - FIAP
 
-**Status**: ? Pronto para produção
+**Status**: Pronto para producao
