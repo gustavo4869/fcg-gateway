@@ -8,12 +8,6 @@ Gateway desenvolvido com YARP (Yet Another Reverse Proxy) para .NET 10, respons√
 
 **URL Publica**: https://ca-fcg-gateway.whitegrass-9df3aed8.brazilsouth.azurecontainerapps.io
 
-## Quick Start
-
-**Novo no projeto?** Siga o guia rapido: [QUICK_START.md](QUICK_START.md)
-
-**Precisa dos comandos?** Veja: [QUICK_COMMANDS.md](QUICK_COMMANDS.md)
-
 ## Sumario
 
 - [Visao Geral](#visao-geral)
